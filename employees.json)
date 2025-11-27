@@ -1,22 +1,22 @@
 [
   {
-    "employee_id": "11506276",
-    "password": "pw001",
-    "name": "อนุวัฒน์",
-    "nickname": "Vedo",
-    "department": "IT",
-    "cannot_eat": ["กุ้ง", "ถั่ว"],
-    "buddy_id": "11506281",
-    "seat": {"floor": 5, "building": "A"}
+    "id": "11506276",
+    "password": "1234",
+    "name": "นาย กฤษณะ แก้วใส",
+    "nickname": "บัง",
+    "department": "IT Data",
+    "food_allergy": "กุ้ง, ปู",
+    "seat": "Floor 5, Tower 2",
+    "buddy": "11501123"
   },
   {
-    "employee_id": "11506281",
-    "password": "pw002",
-    "name": "เจอรนัน",
-    "nickname": "Jeeranan",
-    "department": "Marketing",
-    "cannot_eat": ["หมู"],
-    "buddy_id": "11506276",
-    "seat": {"floor": 4, "building": "B"}
+    "id": "11501123",
+    "password": "1111",
+    "name": "นางสาว วรรณา สวยดี",
+    "nickname": "วรรณ",
+    "department": "HR",
+    "food_allergy": "นม",
+    "seat": "Floor 6, Tower 1",
+    "buddy": "11506276"
   }
 ]
