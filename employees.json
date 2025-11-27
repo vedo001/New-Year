@@ -1,13 +1,12 @@
 [
   {
     "id": "11506276",
-    "password": "1944",
+    "password": "1234",
     "name": "นาย อนุวัตร จันทร์สอน",
     "nickname": "อ๊อฟ",
     "department": "MIS",
     "food_allergy": "กุ้ง, ปู",
-    "seat": "Floor 3, Tower A",
-    "buddy": "11501123"
+    "seat": "Floor 5, Tower 2"
   },
   {
     "id": "11501123",
@@ -16,7 +15,6 @@
     "nickname": "วรรณ",
     "department": "HR",
     "food_allergy": "นม",
-    "seat": "Floor 6, Tower 1",
-    "buddy": "11506276"
+    "seat": "Floor 6, Tower 1"
   }
 ]
