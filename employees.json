@@ -6,16 +6,19 @@
     "nickname": "อ๊อฟ",
     "department": "MIS",
     "food_allergy": "กุ้ง, ปู",
+    "food_favorite": "ไอติม",
     "seat": "Floor 5, Tower 2",
     "buddy": "11501123"
+    
   },
   {
     "id": "11501123",
     "password": "1111",
-    "name": "นางสาว วรรณา สวยดี",
-    "nickname": "วรรณ",
+    "name": "นางสาว สุดสวย สวยดี",
+    "nickname": "งาม",
     "department": "HR",
     "food_allergy": "นม",
+    "food_favorite": "บัวลอย",
     "seat": "Floor 6, Tower 1",
     "buddy": "11501124"
   }
