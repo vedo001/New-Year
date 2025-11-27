@@ -51,13 +51,15 @@ async function loadBuddy(){
     const buddy = data.find(x => x.id === user.buddy);
 
     document.getElementById("profile").innerHTML = `
-        <img src="${buddy.id}.png">
+        <img src="${buddy.id}.png" alt="Buddy Image">
         <h2>${buddy.name} (${buddy.nickname})</h2>
         <div class="info">
             <div><span class="label">แผนก:</span> ${buddy.department}</div>
             <div><span class="label">แพ้อาหาร:</span> ${buddy.food_allergy}</div>
+            <div><span class="label">อาหารที่ชอบ:</span> ${buddy.food_favorite}</div>
             <div><span class="label">ที่นั่ง:</span> ${buddy.seat}</div>
         </div>
+        <button onclick="logout()">Logout</button>
     `;
 }
 
@@ -70,6 +72,5 @@ function logout(){
 </head>
 <body onload="loadBuddy()">
 <div class="card" id="profile"></div>
-
 </body>
 </html>
