@@ -3,10 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <title>Login Buddy</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+body {
+    font-family: 'Noto Sans Thai', sans-serif;
+    background: linear-gradient(135deg, #4e54c8, #8f94fb);
+    display: flex; justify-content: center; align-items: center;
+    height: 100vh; margin: 0;
+}
+.card {
+    background: white; padding: 40px; border-radius: 15px;
+    text-align: center; width: 320px;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+}
+input {
+    width: 90%; padding: 10px; margin: 10px 0;
+    border-radius: 8px; border: 1px solid #ccc;
+    font-size: 16px;
+}
+button {
+    width: 95%; padding: 12px; margin-top: 10px;
+    background: #4e54c8; color: white; border: none;
+    border-radius: 8px; cursor: pointer; font-size: 16px;
+}
+button:hover {
+    background: #3b42a3;
+}
+h2 { margin-bottom: 10px; font-weight: 700; color: #333; }
+</style>
+
 <script>
 async function login() {
-    const id = document.getElementById("user").value;
-    const pw = document.getElementById("pass").value;
+    const id = document.getElementById("user").value.trim();
+    const pw = document.getElementById("pass").value.trim();
 
     const data = await fetch("employees.json").then(r => r.json());
     const user = data.find(x => x.id === id && x.password === pw);
@@ -16,18 +45,19 @@ async function login() {
         return;
     }
 
-    // เก็บ ID ของผู้ใช้ไว้
     localStorage.setItem("loginUser", user.id);
-
-    // ไปหน้าแสดงข้อมูล Buddy
     window.location = "Profile_INFO.html";
 }
 </script>
+
 </head>
 <body>
-<h2>เข้าสู่ระบบ Buddy</h2>
-รหัสพนักงาน: <input id="user"><br>
-รหัสผ่าน: <input id="pass" type="password"><br><br>
-<button onclick="login()">Login</button>
+<div class="card">
+    <h2>เข้าสู่ระบบ Buddy</h2>
+    <p>กรุณากรอกข้อมูล</p>
+    <input id="user" placeholder="รหัสพนักงาน">
+    <input id="pass" type="password" placeholder="รหัสผ่าน">
+    <button onclick="login()">Login</button>
+</div>
 </body>
 </html>
