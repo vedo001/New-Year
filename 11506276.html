@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>Buddy Info</title>
+<style>
+    body {
+        text-align: center;
+        background: #000;
+        color: white;
+        font-family: Arial;
+    }
+    img {
+        width: 300px;
+        margin-top: 50px;
+        border-radius: 20px;
+    }
+    .info {
+        font-size: 22px;
+        margin-top: 20px;
+        line-height: 1.7;
+    }
+    .highlight {
+        color: #ffcc00;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+
+<h2>ข้อมูล Buddy ของคุณ</h2>
+<img id="buddyImg" src="" alt="Buddy Image">
+<div class="info" id="buddyInfo"></div>
+
+<script>
+const employeeId = window.location.pathname.split("/").pop().replace(".html","");
+
+async function loadBuddy() {
+    const res = await fetch("employees.json");
+    const data = await res.json();
+
+    // หาผู้ใช้
+    const user = data.find(u => u.employee_id === employeeId);
+
+    if(!user) {
+        document.getElementById("buddyInfo").textContent = "ไม่พบข้อมูลพนักงาน";
+        return;
+    }
+
+    // หาข้อมูล Buddy
+    const buddy = data.find(u => u.employee_id === user.buddy_id);
+
+    if(!buddy) {
+        document.getElementById("buddyInfo").textContent = "ไม่พบข้อมูล Buddy";
+        return;
+    }
+
+    // แสดงรูป Buddy
+    document.getElementById("buddyImg").src = `${buddy.employee_id}.PNG`;
+
+    // แสดงรายละเอียด Buddy
+    const infoDiv = document.getElementById("buddyInfo");
+    infoDiv.innerHTML = `
+        ชื่อจริง: <span class="highlight">${buddy.name}</span><br>
+        ชื่อเล่น: <span class="highlight">${buddy.nickname}</span><br>
+        แผนก: <span class="highlight">${buddy.department}</span><br>
+        ของที่ไม่สามารถกินได้: <span class="highlight">${buddy.cannot_eat.join(", ")}</span><br>
+        โต๊ะ: ชั้น ${buddy.seat.floor} ตึก ${buddy.seat.building}
+    `;
+}
+
+loadBuddy();
+</script>
+
+</body>
+</html>
