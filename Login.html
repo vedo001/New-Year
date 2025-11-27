@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>Login Buddy</title>
+<style>
+    body {
+        text-align: center;
+        background: #000;
+        color: white;
+        font-family: Arial;
+    }
+    input {
+        padding: 10px;
+        font-size: 18px;
+        margin: 5px;
+        border-radius: 10px;
+        border: none;
+    }
+    button {
+        padding: 12px 25px;
+        font-size: 20px;
+        border: none;
+        border-radius: 12px;
+        background: #ff0066;
+        color: white;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #ff3388;
+    }
+</style>
+</head>
+<body>
+
+<h2>เข้าสู่ระบบ Buddy</h2>
+
+<div>
+    <input type="text" id="userId" placeholder="รหัสพนักงาน"><br>
+    <input type="password" id="password" placeholder="Password"><br>
+    <button onclick="login()">เข้าสู่ระบบ</button>
+</div>
+
+<p id="msg" style="color: yellow; margin-top: 10px;"></p>
+
+<script>
+async function login() {
+    const userId = document.getElementById("userId").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const msg = document.getElementById("msg");
+
+    if(!userId || !password) {
+        msg.textContent = "กรุณากรอกข้อมูลให้ครบ";
+        return;
+    }
+
+    try {
+        const res = await fetch("employees.json");
+        const data = await res.json();
+
+        const user = data.find(u => u.employee_id === userId && u.password === password);
+
+        if(user) {
+            // เข้าสู่หน้าของพนักงาน
+            window.location.href = `${userId}.html`;
+        } else {
+            msg.textContent = "รหัสพนักงานหรือรหัสผ่านไม่ถูกต้อง";
+        }
+
+    } catch(err) {
+        console.error(err);
+        msg.textContent = "เกิดข้อผิดพลาดในการโหลดข้อมูล";
+    }
+}
+</script>
+
+</body>
+</html>
