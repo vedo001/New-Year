@@ -2,55 +2,32 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>Buddy Login</title>
-<style>
-body { text-align:center; font-family:Arial; background:#000; color:white; margin-top:80px; }
-input { padding:10px; margin:5px; width:230px; border-radius:8px; border:none; font-size:16px; }
-button { padding:10px 25px; border-radius:8px; border:none; cursor:pointer; background:#2ecc71; font-size:17px; font-weight:bold; margin-top:10px; color:black;}
-button:hover { background:#27ae60; color:white; }
-.box { background:rgba(255,255,255,0.1); padding:30px; width:350px; margin:auto; border-radius:15px; }
-</style>
-</head>
-<body>
-
-<div class="box">
-    <h2>🔐 เข้าสู่ระบบ Buddy</h2>
-
-    <input type="text" id="user" placeholder="รหัสพนักงาน"><br>
-    <input type="password" id="pass" placeholder="รหัสผ่าน"><br>
-    <button onclick="login()">เข้าสู่ระบบ</button>
-
-    <p id="msg" style="color:#ff8080; font-weight:bold; margin-top:15px;"></p>
-</div>
-
+<title>Login Buddy</title>
 <script>
 async function login() {
-    let id = document.getElementById("user").value.trim();
-    let pw = document.getElementById("pass").value.trim();
-    let msg = document.getElementById("msg");
+    const id = document.getElementById("user").value;
+    const pw = document.getElementById("pass").value;
 
-    if(id === "" || pw === ""){
-        msg.innerText = "⚠ กรุณากรอกให้ครบ";
+    const data = await fetch("employees.json").then(r => r.json());
+    const user = data.find(x => x.id === id && x.password === pw);
+
+    if(!user){
+        alert("รหัสพนักงานหรือรหัสผ่านไม่ถูกต้อง!");
         return;
     }
 
-    let res = await fetch("employees.json?v=" + Date.now());
-    let data = await res.json();
+    // เก็บ ID ของผู้ใช้ไว้
+    localStorage.setItem("loginUser", user.id);
 
-    let emp = data.find(e => e.id === id && e.password === pw);
-
-    if(emp) {
-        msg.style.color = "#00ff9d";
-        msg.innerText = "✔ เข้าสู่ระบบสำเร็จ";
-        setTimeout(() => {
-            window.location.href = "Profile_INFO.html?id=" + id;
-        }, 600);
-    } else {
-        msg.style.color = "#ff8080";
-        msg.innerText = "❌ รหัสไม่ถูกต้อง";
-    }
+    // ไปหน้าแสดงข้อมูล Buddy
+    window.location = "Profile_INFO.html";
 }
 </script>
-
+</head>
+<body>
+<h2>เข้าสู่ระบบ Buddy</h2>
+รหัสพนักงาน: <input id="user"><br>
+รหัสผ่าน: <input id="pass" type="password"><br><br>
+<button onclick="login()">Login</button>
 </body>
 </html>
