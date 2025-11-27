@@ -6,7 +6,8 @@
     "nickname": "อ๊อฟ",
     "department": "MIS",
     "food_allergy": "กุ้ง, ปู",
-    "seat": "Floor 5, Tower 2"
+    "seat": "Floor 5, Tower 2",
+    "buddy": "11501123"
   },
   {
     "id": "11501123",
@@ -15,6 +16,7 @@
     "nickname": "วรรณ",
     "department": "HR",
     "food_allergy": "นม",
-    "seat": "Floor 6, Tower 1"
+    "seat": "Floor 6, Tower 1",
+    "buddy": "11501124"
   }
 ]
