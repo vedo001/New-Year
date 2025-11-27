@@ -2,74 +2,93 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>Login Buddy</title>
+<title>Buddy Login</title>
+
 <style>
     body {
         text-align: center;
+        font-family: 'Segoe UI', Arial;
         background: #000;
         color: white;
-        font-family: Arial;
+        margin-top: 90px;
     }
     input {
         padding: 10px;
-        font-size: 18px;
-        margin: 5px;
-        border-radius: 10px;
+        margin: 7px;
+        width: 230px;
+        border-radius: 8px;
         border: none;
+        font-size: 16px;
     }
     button {
-        padding: 12px 25px;
-        font-size: 20px;
+        padding: 10px 25px;
+        border-radius: 8px;
         border: none;
-        border-radius: 12px;
-        background: #ff0066;
-        color: white;
         cursor: pointer;
+        background: #2ecc71;
+        font-size: 17px;
+        margin-top: 10px;
+        color: black;
+        font-weight: bold;
     }
     button:hover {
-        background: #ff3388;
+        background: #27ae60;
+        color: white;
+    }
+    .box {
+        background: rgba(255,255,255,0.1);
+        padding: 30px;
+        width: 350px;
+        margin: auto;
+        border-radius: 15px;
     }
 </style>
+
 </head>
 <body>
 
-<h2>เข้าสู่ระบบ Buddy</h2>
+<div class="box">
+    <h2>🔐 เข้าสู่ระบบกิจกรรม Buddy</h2>
 
-<div>
-    <input type="text" id="userId" placeholder="รหัสพนักงาน"><br>
-    <input type="password" id="password" placeholder="Password"><br>
+    <input type="text" id="user" placeholder="รหัสพนักงาน"><br>
+    <input type="password" id="pass" placeholder="รหัสผ่าน"><br>
     <button onclick="login()">เข้าสู่ระบบ</button>
+
+    <p id="msg" style="color:#ff8080; font-weight:bold; margin-top:15px;"></p>
 </div>
 
-<p id="msg" style="color: yellow; margin-top: 10px;"></p>
 
 <script>
 async function login() {
-    const userId = document.getElementById("userId").value.trim();
-    const password = document.getElementById("password").value.trim();
-    const msg = document.getElementById("msg");
+    let id = document.getElementById("user").value.trim();
+    let pw = document.getElementById("pass").value.trim();
+    let msg = document.getElementById("msg");
 
-    if(!userId || !password) {
-        msg.textContent = "กรุณากรอกข้อมูลให้ครบ";
+    if(id === "" || pw === ""){
+        msg.innerText = "⚠ กรุณากรอกให้ครบ";
         return;
     }
 
     try {
-        const res = await fetch("employees.json");
-        const data = await res.json();
+        // ป้องกัน cache
+        let res = await fetch("employees.json?v=" + Date.now());
+        let data = await res.json();
 
-        const user = data.find(u => u.employee_id === userId && u.password === password);
+        let emp = data.find(e => e.id === id && e.password === pw);
 
-        if(user) {
-            // เข้าสู่หน้าของพนักงาน
-            window.location.href = `${userId}.html`;
+        if(emp) {
+            msg.style.color = "#00ff9d";
+            msg.innerText = "✔ เข้าสู่ระบบสำเร็จ";
+            setTimeout(() => {
+                window.location.href = id + ".html";
+            }, 500);
         } else {
-            msg.textContent = "รหัสพนักงานหรือรหัสผ่านไม่ถูกต้อง";
+            msg.style.color = "#ff8080";
+            msg.innerText = "❌ รหัสไม่ถูกต้อง";
         }
 
-    } catch(err) {
-        console.error(err);
-        msg.textContent = "เกิดข้อผิดพลาดในการโหลดข้อมูล";
+    } catch (err) {
+        msg.innerText = "🚫 ไม่สามารถโหลดข้อมูลได้ (ตรวจไฟล์ employees.json)";
     }
 }
 </script>
