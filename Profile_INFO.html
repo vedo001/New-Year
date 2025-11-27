@@ -3,6 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <title>Buddy Profile</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+    font-family: 'Noto Sans Thai', sans-serif;
+    background: #f2f3ff;
+    display: flex; justify-content: center; align-items: center;
+    height: 100vh; margin: 0;
+}
+.card {
+    background: white; padding: 30px 40px; border-radius: 18px;
+    width: 380px; text-align: center;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.1);
+}
+img {
+    width: 140px; height: 140px;
+    object-fit: cover; border-radius: 50%; border: 4px solid #4e54c8;
+}
+h2 { margin-top: 10px; color: #333; font-weight: 700; }
+.info { 
+    text-align: left; margin-top: 20px; 
+    font-size: 16px; line-height: 1.8;
+}
+span.label { font-weight: 600; color: #4e54c8; }
+button {
+    margin-top: 20px; width: 100%; padding: 12px;
+    background: #ff4e4e; border: none; color: white;
+    font-size: 16px; border-radius: 8px; cursor: pointer;
+}
+button:hover {
+    background: #d53c3c;
+}
+</style>
+
 <script>
 async function loadBuddy(){
     const loginID = localStorage.getItem("loginUser");
@@ -16,24 +50,26 @@ async function loadBuddy(){
     const user = data.find(x => x.id === loginID);
     const buddy = data.find(x => x.id === user.buddy);
 
-    if(!buddy){
-        document.getElementById("result").innerHTML = "ไม่พบข้อมูล Buddy";
-        return;
-    }
-
-    document.getElementById("result").innerHTML = `
-        <h2>Buddy ของคุณคือ</h2>
-        <img src="${buddy.id}.png" alt="Buddy Photo" width="150"><br><br>
-        <b>ชื่อ:</b> ${buddy.name}<br>
-        <b>ชื่อเล่น:</b> ${buddy.nickname}<br>
-        <b>แผนก:</b> ${buddy.department}<br>
-        <b>แพ้อาหาร:</b> ${buddy.food_allergy}<br>
-        <b>ที่นั่ง:</b> ${buddy.seat}<br>
+    document.getElementById("profile").innerHTML = `
+        <img src="${buddy.id}.png">
+        <h2>${buddy.name} (${buddy.nickname})</h2>
+        <div class="info">
+            <div><span class="label">แผนก:</span> ${buddy.department}</div>
+            <div><span class="label">แพ้อาหาร:</span> ${buddy.food_allergy}</div>
+            <div><span class="label">ที่นั่ง:</span> ${buddy.seat}</div>
+        </div>
     `;
 }
+
+function logout(){
+    localStorage.clear();
+    window.location="Login.html";
+}
 </script>
+
 </head>
 <body onload="loadBuddy()">
-<div id="result"></div>
+<div class="card" id="profile"></div>
+
 </body>
 </html>
