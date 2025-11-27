@@ -14,12 +14,38 @@
         width: 600px;
         margin-top: 50px;
         border-radius: 20px;
-        cursor: pointer; /* แสดงให้รู้ว่าแตะได้ */
+        cursor: pointer;
         transition: 0.2s;
     }
     img:active {
         transform: scale(0.97);
         opacity: 0.8;
+    }
+    .info {
+        margin-top: 30px;
+        font-size: 22px;
+        line-height: 1.7;
+    }
+    .highlight {
+        color: #ffcc00;
+        font-weight: bold;
+    }
+    .btn {
+        margin-top: 30px;
+        padding: 12px 25px;
+        font-size: 22px;
+        background: #ff0066;
+        color: white;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition: 0.2s;
+    }
+    .btn:hover {
+        background: #ff3388;
+        transform: scale(1.05);
     }
 </style>
 </head>
@@ -27,6 +53,14 @@
 
 <h2>Hi, RBMT!</h2>
 <img id="mainpic" src="NW.png" alt="My Picture">
+
+<div class="info">
+    📌 <span class="highlight">เดือนธันวาคม</span> จะมีกิจกรรม Buddy ✨<br>
+    🎉 <span class="highlight">เดือนมกราคม</span> จะมีงานเลี้ยงปีใหม่ + จับของขวัญ 🎁
+</div>
+
+<!-- ปุ่มเช็ครายละเอียด -->
+<a href="Main_menu.html" class="btn">เช็ครายละเอียด</a>
 
 <audio id="bgmusic" loop>
   <source src="song.mp3" type="audio/mpeg">
