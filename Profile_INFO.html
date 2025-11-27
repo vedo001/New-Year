@@ -2,56 +2,38 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>ข้อมูล Buddy</title>
-
-<style>
-body { text-align:center; font-family:Arial; background:#000; color:white; margin-top:40px; }
-img { width:220px; border-radius:18px; margin-bottom:20px; border:3px solid white; }
-.info { font-size:19px; line-height:1.8; background:rgba(255,255,255,0.08); padding:20px; margin:20px auto; width:400px; border-radius:15px; }
-button { padding:10px 20px; border-radius:10px; border:none; cursor:pointer; background:#2ecc71; font-size:16px; font-weight:bold; margin-top:20px; color:black;}
-button:hover { background:#27ae60; color:white; }
-</style>
-
-</head>
-<body>
-
-<h2>🎉 ข้อมูล Buddy ของคุณ 🎉</h2>
-<div id="profile"></div>
-
-<button onclick="window.location.href='Login.html'">🔙 ออกระบบ</button>
-
+<title>Buddy Profile</title>
 <script>
-async function loadProfile(){
-    let params = new URLSearchParams(window.location.search);
-    let id = params.get("id");
-
-    if(!id){
-        document.getElementById("profile").innerHTML = "<p>❌ ไม่พบข้อมูลผู้ใช้งาน</p>";
+async function loadBuddy(){
+    const loginID = localStorage.getItem("loginUser");
+    if(!loginID){
+        alert("กรุณา Login ก่อน");
+        window.location = "Login.html";
         return;
     }
 
-    let res = await fetch("employees.json?v=" + Date.now());
-    let data = await res.json();
+    const data = await fetch("employees.json").then(r => r.json());
+    const user = data.find(x => x.id === loginID);
+    const buddy = data.find(x => x.id === user.buddy);
 
-    let emp = data.find(e => e.id === id);
-
-    if(!emp){
-        document.getElementById("profile").innerHTML = "<p>❌ ไม่พบข้อมูลพนักงาน</p>";
+    if(!buddy){
+        document.getElementById("result").innerHTML = "ไม่พบข้อมูล Buddy";
         return;
     }
 
-    document.getElementById("profile").innerHTML = `
-        <img src="images/${emp.id}.png" alt="Profile"><br>
-        <div class="info">
-            <b>ชื่อ-นามสกุล:</b> ${emp.name}<br>
-            <b>ชื่อเล่น:</b> ${emp.nickname}<br>
-            <b>แผนก:</b> ${emp.department}<br>
-            <b>อาหารที่แพ้ / กินไม่ได้:</b> ${emp.food_allergy}<br>
-            <b>โต๊ะที่นั่ง:</b> ${emp.seat}
-        </div>`;
+    document.getElementById("result").innerHTML = `
+        <h2>Buddy ของคุณคือ</h2>
+        <img src="${buddy.id}.png" alt="Buddy Photo" width="150"><br><br>
+        <b>ชื่อ:</b> ${buddy.name}<br>
+        <b>ชื่อเล่น:</b> ${buddy.nickname}<br>
+        <b>แผนก:</b> ${buddy.department}<br>
+        <b>แพ้อาหาร:</b> ${buddy.food_allergy}<br>
+        <b>ที่นั่ง:</b> ${buddy.seat}<br>
+    `;
 }
-loadProfile();
 </script>
-
+</head>
+<body onload="loadBuddy()">
+<div id="result"></div>
 </body>
 </html>
