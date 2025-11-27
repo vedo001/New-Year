@@ -11,7 +11,7 @@
         font-family: Arial;
     }
     img {
-        width: 300px;
+        width: 600px; /* ขยาย 2 เท่า */
         margin-top: 50px;
         border-radius: 20px;
     }
@@ -22,9 +22,19 @@
 <h2>Hi, Welcome!</h2>
 <img src="NW.png" alt="My Picture">
 
-<audio autoplay loop>
+<!-- เพิ่ม muted เพื่ออนุญาต autoplay บนมือถือ -->
+<audio id="bgmusic" autoplay muted loop>
   <source src="song.mp3" type="audio/mpeg">
 </audio>
+
+<script>
+  // ปลด mute หลังโหลดหน้าเว็บ (ช่วยให้มือถือเล่นอัตโนมัติ)
+  const music = document.getElementById("bgmusic");
+  window.addEventListener("load", () => {
+      music.muted = false;
+      music.play();
+  });
+</script>
 
 </body>
 </html>
